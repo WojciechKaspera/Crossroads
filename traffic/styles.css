@@ -1,0 +1,168 @@
+.main-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.traffic-lights {
+    background: #1d1d1d;
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.vertical-lights {
+    width: 20px;
+    height: 40px;
+}
+
+.horizontal-lights {
+    width: 40px;
+    height: 20px;
+}
+
+.right-blinker {
+    visibility: hidden;
+    transform: rotate(90deg);
+    position: absolute;
+    top: -2px;
+    right: 25px;
+    width: 5px;
+    height: 5px;
+}
+
+.left-blinker {
+    visibility: hidden;
+    transform: rotate(-90deg);
+    position: absolute;
+    top: 16px;
+    right: 25px;
+    width: 5px;
+    height: 5px;
+}
+
+.traffic-light {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: #636363;
+}
+
+#sLights {
+    top: 300px;
+    left: 300px;
+    flex-direction: column;
+}
+
+#sLights::after {
+    position: absolute;
+    top: 40px;
+    left: 8px;
+    width: 4px;
+    height: 16px;
+    background: black;
+    content: "";
+}
+
+#wLights {
+    top: 300px;
+    left: 160px;
+    flex-direction: row-reverse;
+}
+
+#wLights::after {
+    position: absolute;
+    top: 8px;
+    left: -16px;
+    width: 16px;
+    height: 4px;
+    background: black;
+    content: "";
+}
+
+#nLights {
+    top: 160px;
+    left: 180px;
+    flex-direction: column-reverse;
+}
+
+#nLights::after {
+    position: absolute;
+    top: -16px;
+    left: 8px;
+    width: 4px;
+    height: 16px;
+    background: black;
+    content: "";
+}
+
+#eLights {
+    top: 180px;
+    left: 300px;
+    flex-direction: row;
+}
+
+#eLights::after {
+    position: absolute;
+    top: 8px;
+    left: 40px;
+    width: 16px;
+    height: 4px;
+    background: black;
+    content: "";
+}
+
+.crossroad-box {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background: url("assets/asphalt.jpg");
+    overflow: hidden;
+}
+
+.field {
+    width: 220px;
+    height: 220px;
+    position: absolute;
+    background-image: url("assets/images.jpg");
+}
+
+.field-nw {
+    left: 0;
+    top: 0;
+    border-radius: 0 0 25px 0;
+}
+
+.field-ne {
+    top: 0;
+    right: 0;
+    border-radius: 0 0 0 25px;
+}
+
+.car {
+    position: absolute;
+    z-index: 1;
+    transform: rotate(90deg);
+}
+
+.car-img {
+    position: absolute;
+    right: 0;
+    width: 40px;
+    height: 20px;
+}
+
+.field-sw {
+    left: 0;
+    bottom: 0;
+    border-radius: 0 25px 0 0;
+}
+
+.field-se {
+    right: 0;
+    bottom: 0;
+    border-radius: 25px 0 0 0;
+}

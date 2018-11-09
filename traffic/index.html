@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-section">
+        <div class="crossroad-box" id="crossroad">
+            <div class="field field-nw"></div>
+            <div class="field field-ne"></div>
+            <div class="field field-sw"></div>
+            <div class="field field-se"></div>
+            <div class="traffic-lights vertical-lights" id="sLights">
+                <div class="traffic-light"></div>
+                <div class="traffic-light"></div>
+            </div>
+                        <div class="traffic-lights horizontal-lights" id="wLights">
+                <div class="traffic-light"></div>
+                <div class="traffic-light"></div>
+            </div>
+                        <div class="traffic-lights vertical-lights" id="nLights">
+                <div class="traffic-light"></div>
+                <div class="traffic-light"></div>
+            </div>
+                        <div class="traffic-lights horizontal-lights" id="eLights">
+                <div class="traffic-light"></div>
+                <div class="traffic-light"></div>
+            </div>
+
+        </div>
+        <div class="buttons-section">
+            <button id="startBtn">CIŚ!</button>
+            <button id="stopBtn">STÓJ!</button>
+            <button id="changeLightBtn">ZMIEN ŚWIATLO</button>
+        </div>
+    </div>
+    <script src="Car.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
