@@ -17,8 +17,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+            <state relative-caret-position="595">
+              <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -32,33 +32,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="299" column="48" selection-start-line="299" selection-start-column="48" selection-end-line="299" selection-end-column="48" />
+            <state relative-caret-position="105">
+              <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
               <folding>
                 <element signature="e#39#84#0" />
+                <element signature="e#1103#1111#0" />
                 <element signature="e#1097#1378#0" />
+                <element signature="e#1631#1828#0" />
+                <element signature="e#1872#2011#0" />
                 <element signature="n#!!block;n#addNewCar#0" />
+                <element signature="e#2889#2905#0" />
+                <element signature="e#3448#3464#0" />
                 <element signature="n#!!block;n#changeLight#0" />
                 <element signature="n#!!block;n#addObserver#0" />
+                <element signature="e#4795#5857#0" />
                 <element signature="e#5670#5879#0" />
+                <element signature="e#6026#6650#0" />
+                <element signature="e#7798#9325#0" />
                 <element signature="n#!!block;n#createNewCar#0" />
                 <element signature="n#!!block;n#prepareToTurn#0" />
+                <element signature="n#!!block;n#addPriorityObserver#0" />
                 <element signature="n#!!block;n#blink#0" />
                 <element signature="n#!!block;n#stop#0" />
                 <element signature="n#!!block;n#start#0" />
                 <element signature="n#!!block;n#startSlow#0" />
                 <element signature="n#!!block;n#getRandomOrigin#0" />
+                <element signature="n#!!block;n#getIndex#0" />
                 <element signature="n#!!block;n#getRandomDirection#0" />
                 <element signature="n#!!block;n#removeCar#0" />
+                <element signature="n#!!block;n#getOppositeDirection#0" />
+                <element signature="n#!!block;n#getRelativePosition#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -70,8 +82,8 @@
       <file leaf-file-name="Car.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Car.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+            <state relative-caret-position="102">
+              <caret line="33" column="6" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -80,36 +92,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>create</find>
-      <find>'click</find>
-      <find>cars</find>
-      <find>cars[0]</find>
-      <find>left</find>
-      <find>observe</find>
-      <find>cars[carName]</find>
-      <find>testCar</find>
       <find>east</find>
-      <find>main-se</find>
       <find>conso</find>
       <find>origin</find>
       <find>switch</find>
-      <find>turn</find>
-      <find>console.l</find>
       <find>observ</find>
       <find>removeOb</find>
       <find>observer</find>
       <find>turno</find>
       <find>turnO</find>
-      <find>console.</find>
       <find>car.des</find>
       <find>destination</find>
       <find>!==</find>
       <find>newCar</find>
       <find>console</find>
       <find>stop</find>
-      <find>turn(</find>
       <find>blinkInterval</find>
       <find>console.log</find>
+      <find>observe(</find>
+      <find>stop(</find>
+      <find>test3</find>
+      <find>console.</find>
+      <find>turn</find>
+      <find>console.l</find>
+      <find>startSlow</find>
+      <find>turn(</find>
+      <find>car.dir</find>
+      <find>main-se</find>
+      <find>addObserver</find>
+      <find>go</find>
+      <find>observe</find>
     </findStrings>
     <replaceStrings>
       <replace>25px</replace>
@@ -121,6 +133,7 @@
       <replace>car</replace>
       <replace>stopObserver</replace>
       <replace>removingOb</replace>
+      <replace>addObservers</replace>
       <replace>testCarInitialXPosition</replace>
     </replaceStrings>
   </component>
@@ -128,11 +141,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/styles.css" />
         <option value="$PROJECT_DIR$/Car.js" />
-        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/main.js" />
       </list>
     </option>
   </component>
@@ -215,12 +228,12 @@
       <workItem from="1540382756172" duration="1769000" />
       <workItem from="1540386106779" duration="6634000" />
       <workItem from="1540722901738" duration="6736000" />
-      <workItem from="1541084961105" duration="51951000" />
+      <workItem from="1541084961105" duration="89522000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67090000" />
+    <option name="totallyTimeSpent" value="104661000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -233,7 +246,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49761525" visible="true" weight="0.31842577" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49761525" visible="true" weight="0.31842577" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39892665" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -253,7 +266,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -291,20 +304,32 @@
           <caret line="31" column="3" lean-forward="true" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
           <folding>
             <element signature="e#39#84#0" />
+            <element signature="e#1103#1111#0" />
             <element signature="e#1097#1378#0" />
+            <element signature="e#1631#1828#0" />
+            <element signature="e#1872#2011#0" />
             <element signature="n#!!block;n#addNewCar#0" />
+            <element signature="e#2889#2905#0" />
+            <element signature="e#3448#3464#0" />
             <element signature="n#!!block;n#changeLight#0" />
             <element signature="n#!!block;n#addObserver#0" />
+            <element signature="e#4795#5857#0" />
             <element signature="e#5670#5879#0" />
+            <element signature="e#6026#6650#0" />
+            <element signature="e#7798#9325#0" />
             <element signature="n#!!block;n#createNewCar#0" />
             <element signature="n#!!block;n#prepareToTurn#0" />
+            <element signature="n#!!block;n#addPriorityObserver#0" />
             <element signature="n#!!block;n#blink#0" />
             <element signature="n#!!block;n#stop#0" />
             <element signature="n#!!block;n#start#0" />
             <element signature="n#!!block;n#startSlow#0" />
             <element signature="n#!!block;n#getRandomOrigin#0" />
+            <element signature="n#!!block;n#getIndex#0" />
             <element signature="n#!!block;n#getRandomDirection#0" />
             <element signature="n#!!block;n#removeCar#0" />
+            <element signature="n#!!block;n#getOppositeDirection#0" />
+            <element signature="n#!!block;n#getRelativePosition#0" />
           </folding>
         </state>
       </provider>
@@ -374,8 +399,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+        <state relative-caret-position="595">
+          <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -386,41 +411,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Car.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        <state relative-caret-position="102">
+          <caret line="33" column="6" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="299" column="48" selection-start-line="299" selection-start-column="48" selection-end-line="299" selection-end-column="48" />
+        <state relative-caret-position="105">
+          <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
           <folding>
             <element signature="e#39#84#0" />
+            <element signature="e#1103#1111#0" />
             <element signature="e#1097#1378#0" />
+            <element signature="e#1631#1828#0" />
+            <element signature="e#1872#2011#0" />
             <element signature="n#!!block;n#addNewCar#0" />
+            <element signature="e#2889#2905#0" />
+            <element signature="e#3448#3464#0" />
             <element signature="n#!!block;n#changeLight#0" />
             <element signature="n#!!block;n#addObserver#0" />
+            <element signature="e#4795#5857#0" />
             <element signature="e#5670#5879#0" />
+            <element signature="e#6026#6650#0" />
+            <element signature="e#7798#9325#0" />
             <element signature="n#!!block;n#createNewCar#0" />
             <element signature="n#!!block;n#prepareToTurn#0" />
+            <element signature="n#!!block;n#addPriorityObserver#0" />
             <element signature="n#!!block;n#blink#0" />
             <element signature="n#!!block;n#stop#0" />
             <element signature="n#!!block;n#start#0" />
             <element signature="n#!!block;n#startSlow#0" />
             <element signature="n#!!block;n#getRandomOrigin#0" />
+            <element signature="n#!!block;n#getIndex#0" />
             <element signature="n#!!block;n#getRandomDirection#0" />
             <element signature="n#!!block;n#removeCar#0" />
+            <element signature="n#!!block;n#getOppositeDirection#0" />
+            <element signature="n#!!block;n#getRelativePosition#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>

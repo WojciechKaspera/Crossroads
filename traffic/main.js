@@ -22,22 +22,25 @@ const config = {
     middle: 250
 };
 
-//TODO obczaić auta z różnych stron
-//TODO zwalnianie i zatrzymywanie się samochodów jeśli wyczają, że przed nimi jest jakiś samochód
-//TODO zatrzymywanie się samochodu, jeżeli wyczai, że nie ma pierwszeństwa
+//TODO zatrzymywanie się samochodu, jeżeli wyczai, że nie ma pierwszeństwa - tylko przypadek jazdy prosto vs skretu w lewo
 //TODO view - więcej modeli aut, dopasowane do ustawień etc.
 //TODO code refactoring - żeby ładniejszy był
 
+const carStacks = {
+    n: [],
+    e: [],
+    s: [],
+    w: []
+};
 const cars = {};
 const stopObservers = {};
 const removingObservers = {};
 const turnObservers = {};
-const startBtn = document.getElementById('startBtn');
-const stopBtn = document.getElementById('stopBtn');
-const changeLightBtn = document.getElementById('changeLightBtn');
+const stackObservers = {};
+const priorityObservers = {};
 const lights = {
     sLight: {
-        position: 310,
+        position: 320,
         greenLight: true
     },
     wLight: {
@@ -45,7 +48,7 @@ const lights = {
         greenLight: false
     },
     nLight: {
-        position: 190,
+        position: 200,
         greenLight: true
     },
     eLight: {
@@ -61,32 +64,75 @@ const lightNodes = {
     eLight: document.getElementById('eLights')
 };
 
-// setInterval(addNewCar, 1500);
+let i = 0;
+addNewCar();
+let demo = setInterval(() => {
+    i++;
+    if (i % 6 < 4 || i % 6 === 0) {
+        addNewCar()
+    } else if (i % 6 === 5) {
+        for (let key in lights) {
+            changeLight(lights[key], lightNodes[key]);
+        }
+    }
+}, 2000);
+
+// avoiding unnecessary computing
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        clearInterval(demo);
+    } else {
+        demo = setInterval(() => {
+            i++;
+            if (i % 6 < 4 || i % 6 === 0) {
+                addNewCar()
+            } else if (i % 6 === 5) {
+                for (let key in lights) {
+                    changeLight(lights[key], lightNodes[key]);
+                }
+            }
+        }, 2000);
+    }
+});
+
 lights.sLight.greenLight ? lightNodes.sLight.children[1].style.backgroundColor = 'green' : lightNodes.sLight.children[0].style.backgroundColor = 'red';
 lights.wLight.greenLight ? lightNodes.wLight.children[1].style.backgroundColor = 'green' : lightNodes.wLight.children[0].style.backgroundColor = 'red';
 lights.nLight.greenLight ? lightNodes.nLight.children[1].style.backgroundColor = 'green' : lightNodes.nLight.children[0].style.backgroundColor = 'red';
 lights.eLight.greenLight ? lightNodes.eLight.children[1].style.backgroundColor = 'green' : lightNodes.eLight.children[0].style.backgroundColor = 'red';
 
-changeLightBtn.addEventListener('click', () => {
-    for (let key in lights) {
-        changeLight(lights[key], lightNodes[key]);
-    }
-});
-
-startBtn.addEventListener('click', addNewCar);
-
-stopBtn.addEventListener('click', () => {
-    stop(cars[0], 70);
-});
-
 function addNewCar() {
     const name = `car${Date.now()}`;
-    const origin = getRandomOrigin();
+    let origin = getRandomOrigin();
     let destination = getRandomDirection();
+
+    //avoiding uncomfortable situation I am too lasy to deal with
+    carStacks[origin[0]].forEach(carInStack => {
+        if (carInStack.destination === 'left') {
+            if (carStacks.e.length === 0) {
+                origin = 'east';
+            } else if (carStacks.n.length === 0) {
+                origin = 'north';
+            } else if (carStacks.s.length === 0) {
+                origin = 'south';
+            } else if (carStacks.w.length === 0) {
+                origin = 'west';
+            }
+        }
+    });
+    carStacks[getOppositeDirection(origin)[0]].forEach(carInStack => {
+        if (carInStack.destination === 'left') {
+            destination = '';
+        }
+    });
+    if (carStacks[origin[0]].length === 3) {
+        origin = getOppositeDirection(origin);
+    }
+
     //empty string for straight
     const newCar = createNewCar(name, origin, 'car1.png');
     newCar.destination = destination;
-    addObserver(newCar, origin);
+    carStacks[origin[0]].push(newCar);
+    addObservers(newCar, origin);
     cars[newCar.name] = newCar;
     if (origin === 'south') {
         newCar.imgRotate = newCar.direction + 90;
@@ -102,7 +148,6 @@ function addNewCar() {
     if (destination) {
         setTimeout(() => {
             prepareToTurn(newCar, destination);
-            // turn(newCar, destination);
         }, 1200);
     }
 }
@@ -131,17 +176,19 @@ function changeLight(light, lightNode) {
                     setTimeout(() => {
                         car.accelerate(speedDifference / 3);
                     }, 250);
-                }   
+                }
             }
         }
     }
     light.greenLight = !light.greenLight;
 }
 
-function addObserver(car, origin) {
+function addObservers(car, origin) {
     const light = lights[`${origin[0]}Light`];
     let carPosition;
     let lightPosition;
+
+    //observer for stopping on red light
     stopObservers[car.name] = new MutationObserver(() => {
         switch (car.origin) {
             case 'north':
@@ -171,12 +218,16 @@ function addObserver(car, origin) {
             stopObservers[car.name].disconnect();
         }
     });
+
+    //observer for removing the car and observers after leaving the area
     removingObservers[car.name] = new MutationObserver(() => {
         if (car.positionX < -60 || car.positionX > 560 || car.positionY < -60 || car.positionY > 560) {
             removingObservers[car.name].disconnect();
             removeCar(car);
         }
     });
+
+    //observer for turning
     if (car.destination) {
         turnObservers[car.name] = new MutationObserver(() => {
             let turningDistance;
@@ -202,6 +253,45 @@ function addObserver(car, origin) {
             if (Math.abs(carPosition - config.middle) < (turningDistance)) {
                 turn(car);
                 turnObservers[car.name].disconnect();
+                if (stackObservers[car.name]) {
+                    stackObservers[car.name].disconnect();
+                }
+            }
+        });
+    }
+
+    //observer for watching the cars ahead
+    const stack = carStacks[car.origin[0]];
+    const index = getIndex(stack, car);
+    if (index > 0) {
+        stackObservers[car.name] = new MutationObserver(() => {
+            const observedCar = carStacks[car.origin[0]][index - 1];
+            if (observedCar) {
+                if (car.origin === 'south') {
+                    if (Math.abs(car.positionY - observedCar.positionY) < 120 && car.name !== observedCar.name) {
+                        stop(car, 60);
+                        stackObservers[car.name].disconnect();
+                        if (stopObservers[car.name]) {
+                            stopObservers[car.name].disconnect();
+                        }
+                    }
+                } else if (car.origin === 'north') {
+                    if (Math.abs(car.positionY - observedCar.positionY) < 120 && car.name !== observedCar.name) {
+                        stop(car, 90);
+                        stackObservers[car.name].disconnect();
+                        if (stopObservers[car.name]) {
+                            stopObservers[car.name].disconnect();
+                        }
+                    }
+                } else if (car.origin === 'west' || car.origin === 'east') {
+                    if (Math.abs(car.positionX - observedCar.positionX) < 120 && car.name !== observedCar.name) {
+                        stop(car, 90);
+                        stackObservers[car.name].disconnect();
+                        if (stopObservers[car.name]) {
+                            stopObservers[car.name].disconnect();
+                        }
+                    }
+                }
             }
         });
     }
@@ -272,6 +362,11 @@ function prepareToTurn(car, direction) {
 }
 
 function turn(car) {
+    delete carStacks[car.origin[0]].map((carInStack, index) => {
+        if (carInStack.name === car.name) {
+            carStacks[car.origin[0]].splice(index, 1);
+        }
+    });
     const direction = car.destination;
     let turningInterval;
     const initialDirection = car.direction;
@@ -290,20 +385,84 @@ function turn(car) {
             }
         }, 10);
     } else if (direction === 'left') {
-        turningInterval = setInterval(() => {
-            car.imgRotate--;
-            car.carNode.style.transform = `rotate(${car.imgRotate}deg)`;
-            car.direction++;
-            if (car.direction > initialDirection + 90) {
-                car.direction = initialDirection + 90;
-                car.carNode.style.transform = `rotate(${car.imgRotate}deg)`;
-                car.speed = config.defaultSpeed;
-                clearInterval(turningInterval);
-                clearInterval(car.blinkInterval);
-                car.carNode.getElementsByClassName(`${direction}-blinker`)[0].style.visibility = 'hidden';
+        const oppositeDirection = getOppositeDirection(car.origin);
+        let canIGo = true;
+        let carWithPriority;
+        carStacks[oppositeDirection[0]].forEach(carInStack => {
+            const relativePosition = getRelativePosition(carInStack);
+            if (carInStack.destination === 'right' || carInStack.destination === '' && relativePosition < 240) {
+                canIGo = false;
+                carWithPriority = carInStack;
             }
-        }, 10);
+        });
+        if (!canIGo) {
+            console.log('nie mogie!');
+            car.speed = 0;
+            priorityObservers[car.name] = addPriorityObserver(car, carWithPriority);
+            priorityObservers[car.name].observe(carWithPriority.carNode, {
+                attributes: true,
+                childList: false,
+                subtree: false
+            });
+        } else if (canIGo) {
+            car.speed = config.defaultSpeed / 2;
+            if (priorityObservers[car.name]) {
+                priorityObservers[car.name].disconnect();
+                delete priorityObservers[car.name];
+            }
+            turningInterval = setInterval(() => {
+                car.imgRotate--;
+                car.carNode.style.transform = `rotate(${car.imgRotate}deg)`;
+                car.direction++;
+                if (car.direction > initialDirection + 90) {
+                    car.direction = initialDirection + 90;
+                    car.carNode.style.transform = `rotate(${car.imgRotate}deg)`;
+                    car.speed = config.defaultSpeed;
+                    clearInterval(turningInterval);
+                    clearInterval(car.blinkInterval);
+                    car.carNode.getElementsByClassName(`${direction}-blinker`)[0].style.visibility = 'hidden';
+                }
+            }, 10);
+        }
     }
+}
+
+function addPriorityObserver(car, carWithPriority) {
+    return new MutationObserver(() => {
+        if (carWithPriority.origin === 'south') {
+            if (carWithPriority.positionY < (config.middle + 10)) {
+                car.speed = config.defaultSpeed / 2;
+                turn(car);
+                if (priorityObservers[car.name]) {
+                    priorityObservers[car.name].disconnect();
+                }
+            }
+        } else if (carWithPriority.origin === 'north') {
+            if (carWithPriority.positionY > (config.middle - 10)) {
+                turn(car);
+                car.speed = config.defaultSpeed / 2;
+                if (priorityObservers[car.name]) {
+                    priorityObservers[car.name].disconnect();
+                }
+            }
+        } else if (carWithPriority.origin === 'east') {
+            if (carWithPriority.positionX < (config.middle + 10)) {
+                turn(car);
+                car.speed = config.defaultSpeed / 2;
+                if (priorityObservers[car.name]) {
+                    priorityObservers[car.name].disconnect();
+                }
+            }
+        } else if (carWithPriority.origin === 'west') {
+            if (carWithPriority.positionX > (config.middle - 10)) {
+                turn(car);
+                car.speed = config.defaultSpeed / 2;
+                if (priorityObservers[car.name]) {
+                    priorityObservers[car.name].disconnect();
+                }
+            }
+        }
+    })
 }
 
 function blink(car, direction) {
@@ -344,6 +503,9 @@ function start(car, speed) {
     if (car.destination) {
         turnObservers[car.name].observe(car.carNode, {attributes: true, childList: false, subtree: false});
     }
+    if (stackObservers[car.name]) {
+        stackObservers[car.name].observe(car.carNode, {attributes: true, childList: false, subtree: false});
+    }
     if (car.speed === 0) {
         car.go();
         setTimeout(() => {
@@ -371,16 +533,17 @@ function startSlow(car, speed) {
     setTimeout(() => {
         car.accelerate(speed / 6);
     }, 550);
-    setTimeout(() => {
-        car.accelerate(speed / 6);
-    }, 2500);
-    setTimeout(() => {
-        car.accelerate(speed / 6);
-    }, 3000);
-    setTimeout(() => {
-        car.accelerate(speed / 6);
-    }, 3500);
-
+    if (!car.destination) {
+        setTimeout(() => {
+            car.accelerate(speed / 6);
+        }, 2550);
+        setTimeout(() => {
+            car.accelerate(speed / 6);
+        }, 2750);
+        setTimeout(() => {
+            car.accelerate(speed / 6);
+        }, 2950);
+    }
 }
 
 function getRandomOrigin() {
@@ -394,6 +557,17 @@ function getRandomOrigin() {
     } else {
         return 'east';
     }
+}
+
+function getIndex(stack, car) {
+    let result;
+    stack.map((carInStack, index) => {
+        if (carInStack.name === car.name) {
+            result = index;
+            return;
+        }
+    });
+    return result;
 }
 
 function getRandomDirection() {
@@ -411,6 +585,45 @@ function removeCar(car) {
     car.carNode.remove();
     stopObservers[car.name].disconnect();
     delete stopObservers[car.name];
+    delete removingObservers[car.name];
+    delete turnObservers[car.name];
+    delete carStacks[car.origin[0]].map((carInStack, index) => {
+        if (carInStack.name === car.name) {
+            carStacks[car.origin[0]].splice(index, 1);
+        }
+    });
     delete cars[car.name];
     delete car;
+}
+
+function getOppositeDirection(direction) {
+    switch (direction) {
+        case 'north':
+            return 'south';
+        case 'south':
+            return 'north';
+        case 'west':
+            return 'east';
+        case 'east':
+            return 'west';
+    }
+}
+
+function getRelativePosition(car) {
+    let result;
+    switch (car.origin) {
+        case 'north':
+            result = car.positionY;
+            break;
+        case 'south':
+            result = 500 - car.positionY;
+            break;
+        case 'east':
+            result = 500 - car.positionX;
+            break;
+        case 'west':
+            result = car.positionX;
+            break;
+    }
+    return result;
 }
