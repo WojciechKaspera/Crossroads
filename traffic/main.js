@@ -22,9 +22,18 @@ const config = {
     middle: 250
 };
 
-//TODO zatrzymywanie się samochodu, jeżeli wyczai, że nie ma pierwszeństwa - tylko przypadek jazdy prosto vs skretu w lewo
+const stopBtn = document.getElementById('stop');
+
+stopBtn.addEventListener('click', () => {
+    for (let key in cars) {
+        cars[key].speed = 0;
+    }
+});
+
+//TODO pomarańczowe światło dodać
 //TODO view - więcej modeli aut, dopasowane do ustawień etc.
 //TODO code refactoring - żeby ładniejszy był
+//TODO kiedyś dodać bajery typu staw, zagroda, domek etc.
 
 const carStacks = {
     n: [],
@@ -41,19 +50,19 @@ const priorityObservers = {};
 const lights = {
     sLight: {
         position: 320,
-        greenLight: true
+        greenLight: false
     },
     wLight: {
         position: 190,
-        greenLight: false
+        greenLight: true
     },
     nLight: {
         position: 200,
-        greenLight: true
+        greenLight: false
     },
     eLight: {
         position: 310,
-        greenLight: false
+        greenLight: true
     },
 
 };
@@ -70,7 +79,8 @@ let demo = setInterval(() => {
     i++;
     if (i % 6 < 4 || i % 6 === 0) {
         addNewCar()
-    } else if (i % 6 === 5) {
+    }
+    if (i % 6 === 5) {
         for (let key in lights) {
             changeLight(lights[key], lightNodes[key]);
         }
@@ -362,7 +372,7 @@ function prepareToTurn(car, direction) {
 }
 
 function turn(car) {
-    delete carStacks[car.origin[0]].map((carInStack, index) => {
+    carStacks[car.origin[0]].map((carInStack, index) => {
         if (carInStack.name === car.name) {
             carStacks[car.origin[0]].splice(index, 1);
         }
@@ -388,15 +398,16 @@ function turn(car) {
         const oppositeDirection = getOppositeDirection(car.origin);
         let canIGo = true;
         let carWithPriority;
-        carStacks[oppositeDirection[0]].forEach(carInStack => {
-            const relativePosition = getRelativePosition(carInStack);
-            if (carInStack.destination === 'right' || carInStack.destination === '' && relativePosition < 240) {
-                canIGo = false;
-                carWithPriority = carInStack;
-            }
-        });
+        if (car.watchForPriority) {
+            carStacks[oppositeDirection[0]].forEach(carInStack => {
+                const relativePosition = getRelativePosition(carInStack);
+                if (carInStack.destination === 'right' || carInStack.destination === '' && relativePosition < 240) {
+                    canIGo = false;
+                    carWithPriority = carInStack;
+                }
+            });
+        }
         if (!canIGo) {
-            console.log('nie mogie!');
             car.speed = 0;
             priorityObservers[car.name] = addPriorityObserver(car, carWithPriority);
             priorityObservers[car.name].observe(carWithPriority.carNode, {
@@ -404,12 +415,9 @@ function turn(car) {
                 childList: false,
                 subtree: false
             });
+            car.watchForPriority = false;
         } else if (canIGo) {
             car.speed = config.defaultSpeed / 2;
-            if (priorityObservers[car.name]) {
-                priorityObservers[car.name].disconnect();
-                delete priorityObservers[car.name];
-            }
             turningInterval = setInterval(() => {
                 car.imgRotate--;
                 car.carNode.style.transform = `rotate(${car.imgRotate}deg)`;
@@ -431,7 +439,9 @@ function addPriorityObserver(car, carWithPriority) {
     return new MutationObserver(() => {
         if (carWithPriority.origin === 'south') {
             if (carWithPriority.positionY < (config.middle + 10)) {
-                car.speed = config.defaultSpeed / 2;
+                if (car.speed != 0) {
+                    car.speed = config.defaultSpeed / 2;
+                }
                 turn(car);
                 if (priorityObservers[car.name]) {
                     priorityObservers[car.name].disconnect();
@@ -440,7 +450,9 @@ function addPriorityObserver(car, carWithPriority) {
         } else if (carWithPriority.origin === 'north') {
             if (carWithPriority.positionY > (config.middle - 10)) {
                 turn(car);
-                car.speed = config.defaultSpeed / 2;
+                if (car.speed != 0) {
+                    car.speed = config.defaultSpeed / 2;
+                }
                 if (priorityObservers[car.name]) {
                     priorityObservers[car.name].disconnect();
                 }
@@ -448,7 +460,9 @@ function addPriorityObserver(car, carWithPriority) {
         } else if (carWithPriority.origin === 'east') {
             if (carWithPriority.positionX < (config.middle + 10)) {
                 turn(car);
-                car.speed = config.defaultSpeed / 2;
+                if (car.speed != 0) {
+                    car.speed = config.defaultSpeed / 2;
+                }
                 if (priorityObservers[car.name]) {
                     priorityObservers[car.name].disconnect();
                 }
@@ -456,7 +470,9 @@ function addPriorityObserver(car, carWithPriority) {
         } else if (carWithPriority.origin === 'west') {
             if (carWithPriority.positionX > (config.middle - 10)) {
                 turn(car);
-                car.speed = config.defaultSpeed / 2;
+                if (car.speed != 0) {
+                    car.speed = config.defaultSpeed / 2;
+                }
                 if (priorityObservers[car.name]) {
                     priorityObservers[car.name].disconnect();
                 }
@@ -484,7 +500,6 @@ function stop(car, inDistance) {
         inDistance -= 30;
     }
     if (inDistance < 25) {
-        console.log('hamuje z piskiem opon');
     }
     const speed = car.speed;
     const interval = inDistance / 0.306 / speed;
@@ -549,13 +564,13 @@ function startSlow(car, speed) {
 function getRandomOrigin() {
     const randomNumber = Math.random();
     if (randomNumber < 0.25) {
-        return 'south';
-    } else if (randomNumber < 0.5) {
-        return 'west';
-    } else if (randomNumber < 0.75) {
         return 'north';
-    } else {
+    } else if (randomNumber < 0.5) {
         return 'east';
+    } else if (randomNumber < 0.75) {
+        return 'south';
+    } else {
+        return 'west';
     }
 }
 

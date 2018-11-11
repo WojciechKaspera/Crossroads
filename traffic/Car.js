@@ -14,6 +14,7 @@ class Car {
         this.destination = '';
         this.blinkInterval = {};
         this.lightsPassed = false;
+        this.watchForPriority = true;
     }
     // movement
     accelerate(howMuch = 1) {

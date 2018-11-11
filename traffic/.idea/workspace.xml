@@ -17,8 +17,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+            <state relative-caret-position="238">
+              <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -35,13 +35,11 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
+            <state relative-caret-position="204">
+              <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
               <folding>
                 <element signature="e#39#84#0" />
                 <element signature="e#1103#1111#0" />
-                <element signature="e#1097#1378#0" />
-                <element signature="e#1631#1828#0" />
                 <element signature="e#1872#2011#0" />
                 <element signature="n#!!block;n#addNewCar#0" />
                 <element signature="e#2889#2905#0" />
@@ -54,6 +52,7 @@
                 <element signature="e#7798#9325#0" />
                 <element signature="n#!!block;n#createNewCar#0" />
                 <element signature="n#!!block;n#prepareToTurn#0" />
+                <element signature="n#!!block;n#turn#0" />
                 <element signature="n#!!block;n#addPriorityObserver#0" />
                 <element signature="n#!!block;n#blink#0" />
                 <element signature="n#!!block;n#stop#0" />
@@ -82,8 +81,8 @@
       <file leaf-file-name="Car.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Car.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="33" column="6" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="6" />
+            <state relative-caret-position="272">
+              <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -92,10 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>east</find>
-      <find>conso</find>
-      <find>origin</find>
-      <find>switch</find>
       <find>observ</find>
       <find>removeOb</find>
       <find>observer</find>
@@ -105,7 +100,6 @@
       <find>destination</find>
       <find>!==</find>
       <find>newCar</find>
-      <find>console</find>
       <find>stop</find>
       <find>blinkInterval</find>
       <find>console.log</find>
@@ -120,8 +114,13 @@
       <find>car.dir</find>
       <find>main-se</find>
       <find>addObserver</find>
-      <find>go</find>
       <find>observe</find>
+      <find>console</find>
+      <find>lightsPassed</find>
+      <find>conso</find>
+      <find>defaultSpeed</find>
+      <find>go</find>
+      <find>minal</find>
     </findStrings>
     <replaceStrings>
       <replace>25px</replace>
@@ -133,8 +132,8 @@
       <replace>car</replace>
       <replace>stopObserver</replace>
       <replace>removingOb</replace>
-      <replace>addObservers</replace>
       <replace>testCarInitialXPosition</replace>
+      <replace>addObservers</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -142,9 +141,9 @@
       <list>
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/styles.css" />
-        <option value="$PROJECT_DIR$/Car.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Car.js" />
         <option value="$PROJECT_DIR$/main.js" />
       </list>
     </option>
@@ -228,12 +227,12 @@
       <workItem from="1540382756172" duration="1769000" />
       <workItem from="1540386106779" duration="6634000" />
       <workItem from="1540722901738" duration="6736000" />
-      <workItem from="1541084961105" duration="89522000" />
+      <workItem from="1541084961105" duration="96176000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104661000" />
+    <option name="totallyTimeSpent" value="111315000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -246,7 +245,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49761525" visible="true" weight="0.31842577" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49761525" visible="true" weight="0.31842577" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39892665" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -266,7 +265,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="10" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -305,8 +304,6 @@
           <folding>
             <element signature="e#39#84#0" />
             <element signature="e#1103#1111#0" />
-            <element signature="e#1097#1378#0" />
-            <element signature="e#1631#1828#0" />
             <element signature="e#1872#2011#0" />
             <element signature="n#!!block;n#addNewCar#0" />
             <element signature="e#2889#2905#0" />
@@ -319,6 +316,7 @@
             <element signature="e#7798#9325#0" />
             <element signature="n#!!block;n#createNewCar#0" />
             <element signature="n#!!block;n#prepareToTurn#0" />
+            <element signature="n#!!block;n#turn#0" />
             <element signature="n#!!block;n#addPriorityObserver#0" />
             <element signature="n#!!block;n#blink#0" />
             <element signature="n#!!block;n#stop#0" />
@@ -397,13 +395,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -418,22 +409,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Car.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="33" column="6" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="6" />
+        <state relative-caret-position="272">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
+        <state relative-caret-position="204">
+          <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
           <folding>
             <element signature="e#39#84#0" />
             <element signature="e#1103#1111#0" />
-            <element signature="e#1097#1378#0" />
-            <element signature="e#1631#1828#0" />
             <element signature="e#1872#2011#0" />
             <element signature="n#!!block;n#addNewCar#0" />
             <element signature="e#2889#2905#0" />
@@ -446,6 +442,7 @@
             <element signature="e#7798#9325#0" />
             <element signature="n#!!block;n#createNewCar#0" />
             <element signature="n#!!block;n#prepareToTurn#0" />
+            <element signature="n#!!block;n#turn#0" />
             <element signature="n#!!block;n#addPriorityObserver#0" />
             <element signature="n#!!block;n#blink#0" />
             <element signature="n#!!block;n#stop#0" />
